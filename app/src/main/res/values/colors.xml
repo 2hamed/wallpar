@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#ececec</color>
+    <color name="actionBarRed">#FFea3c3c</color>
+    <color name="pathBgOrange">#f55d22</color>
+    <color name="timeBgYellow">#ffa800</color>
+</resources>

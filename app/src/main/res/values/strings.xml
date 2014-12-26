@@ -7,7 +7,7 @@
     <string name="default_path">Click browse --></string>
     <string name="browse">Browse</string>
     <string name="path">Path:</string>
-    <string name="choose_time_period">Choose time period:</string>
+    <string name="choose_time_period">Period:</string>
     <string name="once_15">Once every 15 minutes</string>
     <string name="once_half_hour">Once every half hour</string>
     <string name="once_hour">Once every hour</string>
@@ -25,7 +25,7 @@
     <string name="path_is_non_existent">The selected path does not exist!</string>
     <string name="path_is_empty">The selected path is empty!</string>
     <string name="wallpaper_changed">Wallpaper changed!</string>
-    <string name="browse_btn">Browse</string>
+    <string name="browse_btn">...</string>
     <string name="start_update_service">Start/Update Service</string>
     <string name="stop_service">Stop Service</string>
     <string name="guide">To start using Wallpar you must select a folder with your pictures inside and the press "Start/Update Service" button.
