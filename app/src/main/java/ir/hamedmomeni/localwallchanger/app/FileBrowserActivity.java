@@ -10,14 +10,7 @@ package ir.hamedmomeni.localwallchanger.app;
 //  http://developer.android.com/guide/developing/projects/projects-eclipse.html#ReferencingLibraryProject
 
 //General Java imports
-import java.io.File;
-import java.io.FilenameFilter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Collections;
 
-//Android imports
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -26,10 +19,26 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
 import android.util.Log;
+import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.view.*;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+//Android imports
 
 
 public class FileBrowserActivity extends Activity {
@@ -234,15 +243,18 @@ public class FileBrowserActivity extends Activity {
                     } else {// if(sel.canRead()) {
                         showToast(getString(R.string.path_unreadable));
                     }// } else {//if(sel.canRead()) {
-                }// if (sel.isDirectory()) {
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.hit_select_if_right_directory), Toast.LENGTH_SHORT).show();
+                }
+                // if (sel.isDirectory()) {
                 // File picked or an empty directory message clicked
-                else {// if (sel.isDirectory()) {
+                /*else {// if (sel.isDirectory()) {
                     Log.d(LOGTAG, "item clicked");
                     if (!directoryShownIsEmpty) {
                         Log.d(LOGTAG, "File selected:" + chosenFile);
                         returnFileFinishActivity(sel.getAbsolutePath());
                     }
-                }// else {//if (sel.isDirectory()) {
+                }*/// else {//if (sel.isDirectory()) {
             }// public void onClick(DialogInterface dialog, int which) {
         });// lView.setOnClickListener(
     }// private void initializeFileListView() {
@@ -278,7 +290,7 @@ public class FileBrowserActivity extends Activity {
                             || sel.canRead();
                     // Filters based on whether the file is hidden or not
                     if (currentAction == SELECT_DIRECTORY) {
-                        return (sel.isDirectory() && showReadableFile);
+                        return ((sel.isDirectory() && showReadableFile) || sel.getName().matches("(?i).*\\.(png|jpg|gif)$"));
                     }
                     if (currentAction == SELECT_FILE) {
 

@@ -35,5 +35,6 @@
     <string name="guide">To start using Wallpar you must select a folder with your pictures inside and then press "Start/Update Service" button.
         \nTo update the time interval you can again press "Start/Update Service".
     </string>
+    <string name="hit_select_if_right_directory">Press SELECT button if this is your desired path</string>
 
 </resources>
