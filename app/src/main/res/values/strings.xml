@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Wallpar</string>
+    <string name="hello_world">Welcome to Wallpar</string>
+    <string name="action_settings">Settings</string>
+    <string name="default_path">Click browse --></string>
+    <string name="browse">Browse</string>
+    <string name="path">Path:</string>
+    <string name="choose_time_period">Choose time period:</string>
+    <string name="once_15">Once every 15 minutes</string>
+    <string name="once_half_hour">Once every half hour</string>
+    <string name="once_hour">Once every hour</string>
+    <string name="once_half_day">Once every half day</string>
+    <string name="once_day">Once a day</string>
+    <string name="select">Select</string>
+    <string name="up">Up</string>
+    <string name="current_dir">Current directory:</string>
+    <string name="path_unreadable">Path d oes not exist or cannot be read</string>
+    <string name="service_not_running">Service is not running</string>
+    <string name="already_running">Service is already running, let\'s update it</string>
+    <string name="received_directory">Received DIRECTORY path from file browser:</string>
+    <string name="no_path_selected">No path was selected!</string>
+    <string name="select_a_path_first">Select a path before starting!</string>
+    <string name="path_is_non_existent">The selected path does not exist!</string>
+    <string name="path_is_empty">The selected path is empty!</string>
+    <string name="wallpaper_changed">Wallpaper changed!</string>
+    <string name="browse_btn">Browse</string>
+    <string name="start_update_service">Start/Update Service</string>
+    <string name="stop_service">Stop Service</string>
+    <string name="guide">To start using Wallpar you must select a folder with your pictures inside and the press "Start/Update Service" button.
+        \nTo update the time interval you can again press "Start/Update Service".
+    </string>
+
+</resources>
