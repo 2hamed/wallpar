@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -22,6 +21,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FilenameFilter;
 
+import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -30,21 +30,32 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private final int REQUEST_CODE_PICK_FILE = 2;
     Context c = this;
 
-    @InjectView(R.id.editText) EditText et;
-    @InjectView(R.id.seekBar)SeekBar time;
-    @InjectView(R.id.timeText)TextView timeTxt;
+    @InjectView(R.id.editText)
+    EditText et;
+    @InjectView(R.id.seekBar)
+    SeekBar time;
+    @InjectView(R.id.timeText)
+    TextView timeTxt;
 
-    @InjectView(R.id.browseBtn)Button browseBtn;
-    @InjectView(R.id.startBtn)ImageView startBtn;
-    @InjectView(R.id.stopBtn)ImageView stopBtn;
+    @InjectView(R.id.infoBtn)
+    ImageView infoBtn;
+
+    @InjectView(R.id.browseBtn)
+    ImageView browseBtn;
+    @InjectView(R.id.startBtn)
+    ImageView startBtn;
+    @InjectView(R.id.stopBtn)
+    ImageView stopBtn;
 
     AlarmManager alarm;
     PendingIntent pendingIntent;
     SharedPreferences settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.inject(this);
         settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
 
         et.setText(settings.getString("path", "/LWC/"));
@@ -86,16 +97,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
         startBtn.setOnClickListener(this);
         stopBtn.setOnClickListener(this);
         browseBtn.setOnClickListener(this);
+        infoBtn.setOnClickListener(this);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_PICK_DIR) {
-            if(resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK) {
                 String newDir = data.getStringExtra(
                         FileBrowserActivity.returnDirectoryParameter);
                 Toast.makeText(
                         c,
-                        getString(R.string.received_directory)+"\n"+newDir,
+                        getString(R.string.received_directory) + "\n" + newDir,
                         Toast.LENGTH_LONG).show();
                 et.setText(newDir);
 
@@ -108,12 +121,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }//if (requestCode == REQUEST_CODE_PICK_DIR) {
 
         if (requestCode == REQUEST_CODE_PICK_FILE) {
-            if(resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK) {
                 String newFile = data.getStringExtra(
                         FileBrowserActivity.returnFileParameter);
                 Toast.makeText(
                         c,
-                        "Received FILE path from file browser:\n"+newFile,
+                        "Received FILE path from file browser:\n" + newFile,
                         Toast.LENGTH_LONG).show();
 
             } else {//if(resultCode == this.RESULT_OK) {
@@ -128,7 +141,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -148,10 +161,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.startBtn:
                 String path = et.getText().toString();
-                if(path == getString(R.string.default_path)){
+                if (path == getString(R.string.default_path)) {
                     Toast.makeText(c, getString(R.string.select_a_path_first), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -170,10 +183,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     }
                 };
                 File[] contents = directory.listFiles(imageFilter);
-                if(contents == null){
+                if (contents == null) {
                     Toast.makeText(c, getString(R.string.path_is_non_existent), Toast.LENGTH_SHORT).show();
                     return;
-                }else if(contents.length == 0){
+                } else if (contents.length == 0) {
                     Toast.makeText(c, getString(R.string.path_is_empty), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -185,13 +198,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         PendingIntent.FLAG_NO_CREATE) != null);
                 Intent intent = new Intent(c, TimerService.class);
                 pendingIntent = PendingIntent.getService(c, 0, intent, 0);
-                alarm = (AlarmManager)c.getSystemService(Context.ALARM_SERVICE);
-                if(alarmUp){
+                alarm = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
+                if (alarmUp) {
                     Toast.makeText(c, "Already running ... updating", Toast.LENGTH_SHORT).show();
                     alarm.cancel(pendingIntent);
                 }
                 long period = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
-                switch (time.getProgress()){
+                switch (time.getProgress()) {
                     case 0:
                         period = AlarmManager.INTERVAL_FIFTEEN_MINUTES;
                         break;
@@ -208,17 +221,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         period = AlarmManager.INTERVAL_DAY;
                         break;
                 }
-                alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime() , period, pendingIntent);
+                alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime(), period, pendingIntent);
                 break;
             case R.id.stopBtn:
                 boolean alarmUp2 = (PendingIntent.getService(c, 0, new Intent(c, TimerService.class),
                         PendingIntent.FLAG_NO_CREATE) != null);
-                if(alarmUp2){
+                if (alarmUp2) {
                     Intent intent2 = new Intent(c, TimerService.class);
                     pendingIntent = PendingIntent.getService(c, 0, intent2, 0);
-                    alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                    alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                     alarm.cancel(pendingIntent);
-                }else {
+                    Toast.makeText(c, getString(R.string.service_stopped), Toast.LENGTH_SHORT).show();
+                } else {
                     Toast.makeText(c, getString(R.string.service_not_running), Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -233,7 +247,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         fileExploreIntent,
                         REQUEST_CODE_PICK_DIR
                 );
-            break;
+                break;
+            case R.id.infoBtn:
+                new InfoDialog(c).show();
+                break;
             default:
                 break;
         }

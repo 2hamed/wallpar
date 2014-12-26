@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ir.hamedmomeni.localwallchanger.app" >
+    package="ir.hamedmomeni.localwallchanger.app">
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/iconwpr128"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         android:supportsRtl="true">
-        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-        <uses-permission android:name="android.permission.SET_WALLPAPER" />
         <activity
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
             android:name="ir.hamedmomeni.localwallchanger.app.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="ir.hamedmomeni.localwallchanger.app.FileBrowserActivity" >
-        </activity>
-        <service android:name="TimerService"></service>
+        <activity android:name="ir.hamedmomeni.localwallchanger.app.FileBrowserActivity"></activity>
+
+        <service android:name="TimerService" />
     </application>
 
 </manifest>
